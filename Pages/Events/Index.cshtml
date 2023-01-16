@@ -4,30 +4,24 @@
 @{
     ViewData["Title"] = "Avaleht";
 }
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 hero">
+            <p>Sed nec elit vestibulum, <b>tincidunt orci</b> et, sagittis ex. Vestibulum rutrum <b>neque suscipit</b> ante mattis maximus. Nulla non sapien <b>viverra, lobortis lorem non</b>, accumsan metus.</p>
+            </div>
+        <div class="col-md-6 imgcnt">
+            <img src="~/images/pilt.jpg" alt="Puidust pargipink suure puu all">
+        </div>
+    </div>
 
-<h1>Index</h1>
+</div>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EventInfo[0].EventName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventInfo[0].EventDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventInfo[0].EventLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventInfo[0].EventMemo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
 @foreach (var item in Model.EventInfo) {
         <tr>
@@ -37,18 +31,42 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EventDate)
             </td>
+          
+            
             <td>
-                @Html.DisplayFor(modelItem => item.EventLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventMemo)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.ID">OSAVÕTJAD</a>
+                <a asp-page="./Delete" asp-route-id="@item.ID">X</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<p>
+    <a asp-page="Create">LISA ÜRITUS</a>
+</p>
+</div>
+        <div class="col-md-6">
+            <table class="table">
+                <tbody>
+                    @foreach (var item in Model.EventInfo)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventDate)
+                            </td>
+                            <td>
+                                
+                                <a asp-page="./Details" asp-route-id="@item.ID">OSAVÕTJAD</a> 
+                                
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            
+        </div>
+</div>
+</div>

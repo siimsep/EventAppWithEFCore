@@ -6,7 +6,8 @@ using EventAppEFCore.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+// Next line changes default Index.
+builder.Services.AddRazorPages().AddRazorPagesOptions(options => { options.Conventions.AddPageRoute("/Events/Index", ""); });
 builder.Services.AddDbContext<EventAppEFCoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("EventAppEFCoreContext") ?? throw new InvalidOperationException("Connection string 'EventAppEFCoreContext' not found.")));
 
