@@ -13,7 +13,7 @@ namespace EventAppEFCore.Models
         public string EventName { get; set; } = string.Empty;
         [Required]
         [DataType(DataType.Date)]
-        [BindProperty, DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [BindProperty, DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = false)]
         [FutureDate]
         public DateTime EventDate { get; set; } = DateTime.MinValue;
         [Required]
@@ -30,11 +30,11 @@ namespace EventAppEFCore.Models
             ValidationContext validationContext)
         {
             DateTime date = (DateTime)value;
-            if (date > DateTime.Now)
+            if (date.Date >= DateTime.Now.Date)
             {
                 return ValidationResult.Success;
             }
-            return new ValidationResult("Date must be in the future");
+            return new ValidationResult("Kuupäev peab olema tulevikus");
         }
     }
 }

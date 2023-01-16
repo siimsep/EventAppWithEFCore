@@ -18,18 +18,22 @@
 
 
 
-<div class="container">
+<div class="container eventlist">
     <div class="row">
         <div class="col-md-6">
 <table class="table">
     <tbody>
-@foreach (var item in Model.EventInfo) {
+                    @foreach (var item in Model.EventInfo.OrderBy(e => e.EventDate))
+                    {
+                        if (item.EventDate.Date >= DateTime.Now.Date){
+
+                        
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.EventName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EventDate)
+                                    @Html.DisplayFor(modelItem => item.EventDate)
             </td>
           
             
@@ -38,7 +42,7 @@
                 <a asp-page="./Delete" asp-route-id="@item.ID">X</a>
             </td>
         </tr>
-}
+}}
     </tbody>
 </table>
 <p>
@@ -48,14 +52,16 @@
         <div class="col-md-6">
             <table class="table">
                 <tbody>
-                    @foreach (var item in Model.EventInfo)
+                    @foreach (var item in Model.EventInfo.OrderBy(e => e.EventDate))
                     {
+                        if (item.EventDate.Date < DateTime.Now.Date)
+                        {
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.EventName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.EventDate)
+                                    @Html.DisplayFor(modelItem => item.EventDate)
                             </td>
                             <td>
                                 
@@ -63,7 +69,7 @@
                                 
                             </td>
                         </tr>
-                    }
+                    }}
                 </tbody>
             </table>
             

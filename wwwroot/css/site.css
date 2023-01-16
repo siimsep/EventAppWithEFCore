@@ -64,7 +64,7 @@ button.accept-policy {
 .hero {
     background-color:rgb(0, 89, 161);
     color: white;
-    padding-top: 96px;
+    padding-top: 2em;
     padding-left: 33px;
     padding-right: 38px;
     font-size: 18px;
@@ -80,4 +80,7 @@ img {
     position: absolute;
     top: 0;
     left: 0;
+}
+.eventlist {
+    padding-top: 30px;
 }
