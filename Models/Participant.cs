@@ -2,18 +2,16 @@
 
 namespace EventAppEFCore.Models
 {
-    public enum PaymentType
-    { Sularaha, Ülekanne }
+    
     public class Participant
     {
         public int ID { get; set; }
         [Required]
-        public byte IsCompany { get; set; }
+        [StringLength(30)]
+        public string PaymentType { get; set; } = string.Empty;
         [Required]
-        public PaymentType PaymentType { get; set; }
-        [Required]
-        public EventInfo? EventInfo { get; set; } 
-
+        public EventInfo? EventInfo { get; set; }
+        
     }
     public class PrivateParticipant : Participant
     {
@@ -32,6 +30,7 @@ namespace EventAppEFCore.Models
         [StringLength(1500)]
         public string AdditionalInfo { get; set; } = string.Empty;
 
+
     }
     public class CompanyParticipant : Participant
     {
@@ -43,7 +42,7 @@ namespace EventAppEFCore.Models
         [StringLength(100)]
         public string CoName { get; set; } = string.Empty;
         [Required]
-        [StringLength(1000)]
+        [StringLength(4)]
         [RegularExpression("^[0-9]+$")]
         public string CoParticipants { get; set; } = string.Empty;
         [Required]
