@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventAppEFCore.Models
 {
@@ -8,26 +9,31 @@ namespace EventAppEFCore.Models
         public int ID { get; set; }
         [Required]
         [StringLength(30)]
+        [Display(Name = "Maksmisviis:")]
         public string PaymentType { get; set; } = string.Empty;
-        [Required]
-        public EventInfo? EventInfo { get; set; }
-        
+        [ForeignKey("EventInfoId")]
+        public int EventInfoId { get; set; }
+
     }
     public class PrivateParticipant : Participant
     {
         [Required]
         [StringLength(100)]
+        [Display(Name = "Eesnimi:")]
         public string? FName { get; set; } = string.Empty;
         [Required]
         [StringLength(100)]
+        [Display(Name = "Perenimi:")]
         public string? LName { get; set; } = string.Empty;
         [Required]
         [StringLength(11)]
         [RegularExpression("^[0-9]+$")]
+        [Display(Name = "Isikukood:")]
         //[NumberValidator]
         public string PersonalIdNumber { get; set; } = string.Empty;
         [Required]
         [StringLength(1500)]
+        [Display(Name = "Lisainfo:")]
         public string AdditionalInfo { get; set; } = string.Empty;
 
 
@@ -37,16 +43,20 @@ namespace EventAppEFCore.Models
         [Required]
         [StringLength(11)]
         [RegularExpression("^[0-9]+$")]
+        [Display(Name = "Registrikood:")]
         public string CoCode { get; set; } = string.Empty;
         [Required]
         [StringLength(100)]
+        [Display(Name = "Firma nimi:")]
         public string CoName { get; set; } = string.Empty;
         [Required]
         [StringLength(4)]
         [RegularExpression("^[0-9]+$")]
+        [Display(Name = "Osalejate arv:")]
         public string CoParticipants { get; set; } = string.Empty;
         [Required]
         [StringLength(5000)]
+        [Display(Name = "Lisainfo:")]
         public string AdditionalInfo { get; set; } = string.Empty;
 
     }

@@ -8,71 +8,98 @@
     <div class="row">
         <div class="col-md-6 hero">
             <p>Sed nec elit vestibulum, <b>tincidunt orci</b> et, sagittis ex. Vestibulum rutrum <b>neque suscipit</b> ante mattis maximus. Nulla non sapien <b>viverra, lobortis lorem non</b>, accumsan metus.</p>
-            </div>
+        </div>
         <div class="col-md-6 imgcnt">
-            <img src="~/images/pilt.jpg" alt="Puidust pargipink suure puu all">
+            <img id="benchimg" src="~/images/pilt.jpg" alt="Puidust pargipink suure puu all">
         </div>
     </div>
 
 </div>
-
-
-
-<div class="container eventlist">
-    <div class="row">
-        <div class="col-md-6">
-<table class="table">
-    <tbody>
+<div class="row py-4">
+    <div class="col-md-6">
+            <div class="eventlisthero">Tulevased üritused</div>
+        <div class="d-flex flex-column bg-white p-3" style="min-height:300px">
+            <table class="table table-sm table-borderless">
+                <thead>
+                    <tr>
+                        <th style="width: 57%"></th>
+                        <th style="width: 23%"></th>
+                        <th style="width: 15%"></th>
+                        <th style="width:  5%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int counter = 1;}
                     @foreach (var item in Model.EventInfo.OrderBy(e => e.EventDate))
                     {
-                        if (item.EventDate.Date >= DateTime.Now.Date){
+                        if (item.EventDate.Date >= DateTime.Now.Date)
+                        {
 
-                        
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventName)
-            </td>
-            <td>
+
+                            <tr style="height:1.5em;">
+                                <td>
+                                    @counter. @Html.DisplayFor(modelItem => item.EventName)
+                                    
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.EventDate)
-            </td>
-          
-            
-            <td>
-                <a asp-page="./Details" asp-route-id="@item.ID">OSAVÕTJAD</a>
-                <a asp-page="./Delete" asp-route-id="@item.ID">X</a>
-            </td>
-        </tr>
-}}
-    </tbody>
-</table>
-<p>
-    <a asp-page="Create">LISA ÜRITUS</a>
-</p>
-</div>
+                                </td>
+                                <td>
+                                    <a asp-page="./Details" asp-route-id="@item.ID">OSAVÕTJAD</a>
+                                </td>
+                                <td>
+                                    <a asp-page="./Delete" asp-route-id="@item.ID"><img style="width:0.9em; height:auto; overflow:hidden;" src="~/images/remove.svg"></a>
+                                </td>
+                            </tr>
+                            counter++;
+                        }
+
+                    }
+                </tbody>
+            </table>
+            <div style="margin-top: auto;">
+                <a class="" asp-page="Create">LISA ÜRITUS</a>
+            </div>
+        </div>         
+        </div>
         <div class="col-md-6">
-            <table class="table">
+            <div class="text-center eventlisthero">Toimunud üritused</div>
+        <div class="bg-white p-3" style="min-height:300px">
+        <table class="table table-sm table-borderless">
+                <thead>
+                    <tr>
+                        <th style="width: 60%"></th>
+                        <th style="width: 20%"></th>
+                        <th style="width: 20%"></th>  
+                    </tr>
+                </thead>
                 <tbody>
+                @{
+                    int counter2 = 1;
+                }
                     @foreach (var item in Model.EventInfo.OrderBy(e => e.EventDate))
                     {
                         if (item.EventDate.Date < DateTime.Now.Date)
                         {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EventName)
-                            </td>
-                            <td>
+                            <tr>
+                                <td>
+                                    @counter2. @Html.DisplayFor(modelItem => item.EventName)
+                                    
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.EventDate)
-                            </td>
-                            <td>
-                                
-                                <a asp-page="./Details" asp-route-id="@item.ID">OSAVÕTJAD</a> 
-                                
-                            </td>
+                                </td>
+                                <td>
+
+                                    <a asp-page="./Details" asp-route-id="@item.ID">OSAVÕTJAD</a>
+
+                                </td>
                         </tr>
-                    }}
+                        counter2++;
+                    }
+                    }
                 </tbody>
             </table>
-            
+            </div>
         </div>
-</div>
-</div>
+    </div>

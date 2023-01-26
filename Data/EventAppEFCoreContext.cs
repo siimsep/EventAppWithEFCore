@@ -14,10 +14,10 @@ namespace EventAppEFCore.Data
         {
         }
 
-        public DbSet<EventAppEFCore.Models.EventInfo> EventInfo { get; set; } = default!;
+        public DbSet<EventInfo> EventInfo { get; set; } = default!;
 
-        public DbSet<EventAppEFCore.Models.PrivateParticipant> PrivateParticipant { get; set; }
+        public DbSet<PrivateParticipant> PrivateParticipant { get; set; } = default!;
 
-        public DbSet<EventAppEFCore.Models.CompanyParticipant> CompanyParticipant { get; set; }
+        public DbSet<CompanyParticipant> CompanyParticipant { get; set; } = default!;
     }
 }

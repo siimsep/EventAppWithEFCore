@@ -1,0 +1,58 @@
+﻿@using EventAppEFCore.Pages.Events;
+@model DetailsModel
+
+<div class="row input-group">
+        <form method="post" asp-page-handler="Co">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label asp-for="CompanyParticipant.CoCode" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <input asp-for="CompanyParticipant.CoCode" class="form-control" />
+                    <span asp-validation-for="CompanyParticipant.CoCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row pt-2">
+                <div class="col-md-2">
+                    <label asp-for="CompanyParticipant.CoName" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <input asp-for="CompanyParticipant.CoName" class="form-control" />
+                    <span asp-validation-for="CompanyParticipant.CoName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row pt-2">
+                <div class="col-md-2">
+                    <label asp-for="CompanyParticipant.CoParticipants" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <input asp-for="CompanyParticipant.CoParticipants" class="form-control" />
+                    <span asp-validation-for="CompanyParticipant.CoParticipants" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row pt-2">
+                <div class="col-md-2">
+                    <label asp-for="CompanyParticipant.PaymentType" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <input asp-for="CompanyParticipant.PaymentType" class="form-control" />
+                    <span asp-validation-for="CompanyParticipant.PaymentType" class="text-danger"></span>
+                </div>
+                
+            </div>
+            <div class="form-group row pt-2">
+                <div class="col-md-2">
+                    <label asp-for="CompanyParticipant.AdditionalInfo" class="control-label"></label>
+                </div>
+                <div class="col-md-4">
+                    <textarea class="form-control" rows="2" asp-for="CompanyParticipant.AdditionalInfo"></textarea>
+                    <span asp-validation-for="CompanyParticipant.AdditionalInfo" class="text-danger"></span>
+                </div>
+            </div>
+        <div class="form-group col-md-2 d-flex justify-content-between pt-2">
+                <a class="btn btn-secondary" asp-page="./Index">Tagasi</a>
+                <input type="submit" value="Salvesta" class="btn btn-primary" />
+            </div>
+        </form>
+</div>

@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using EventAppEFCore.Data;
+using System.Reflection.Emit;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace EventAppEFCore.Models;
 
@@ -16,7 +19,7 @@ public static class SeedData
                 throw new ArgumentNullException("Null EventInfoContext");
             }
 
-            // Look for any movies.
+            // Look for any.
             if (context.EventInfo.Any())
             {
                 return;   // DB has been seeded
@@ -65,7 +68,83 @@ public static class SeedData
                     EventLocation = "Haapsalu",
                     EventMemo = "Uus väljakutse"
                 }
+                
             );
+            context.PrivateParticipant.AddRange(
+                new PrivateParticipant
+                {
+                    FName = "Siim",
+                    LName = "PNimi",
+                    PersonalIdNumber = "31111111112",
+                    PaymentType = "Sularaha",
+                    AdditionalInfo = "Mi sol es tu sonrisa",
+                    EventInfoId = 1
+                },
+                new PrivateParticipant
+                {
+                    FName = "Siim",
+                    LName = "PNimi",
+                    PersonalIdNumber = "31111111112",
+                    PaymentType = "Sularaha",
+                    AdditionalInfo = "Mi sol es tu sonrisa",
+                    EventInfoId = 2
+
+                },
+                new PrivateParticipant
+                {
+                    FName = "Siim",
+                    LName = "PNimi",
+                    PersonalIdNumber = "31111111112",
+                    PaymentType = "Sularaha",
+                    AdditionalInfo = "Jõulude ajal olin haige.",
+                    EventInfoId = 3
+                },
+                new PrivateParticipant
+                {
+                    FName = "Siim",
+                    LName = "PNimi",
+                    PersonalIdNumber = "31111111112",
+                    PaymentType = "Sularaha",
+                    AdditionalInfo = "Puhatud sai Miamis.",
+                    EventInfoId = 4
+                },
+                new PrivateParticipant
+                {
+                    FName = "Keiu",
+                    LName = "PNimi",
+                    PersonalIdNumber = "41111111112",
+                    PaymentType = "Sularaha",
+                    AdditionalInfo = "Puhatud sai Miamis.",
+                    EventInfoId = 4
+                });
+            context.CompanyParticipant.AddRange(
+                new CompanyParticipant
+                {
+                    CoName = "RIK",
+                    CoCode = "70000310",
+                    CoParticipants = "232",
+                    PaymentType = "Ülekanne",
+                    AdditionalInfo = "CV kätte saadud.",
+                    EventInfoId = 1
+                },
+                new CompanyParticipant
+                {
+                    CoName = "RIK",
+                    CoCode = "70000310",
+                    CoParticipants = "232",
+                    PaymentType = "Ülekanne",
+                    AdditionalInfo = "Saadeti proovitöö.",
+                    EventInfoId = 2
+                },
+                new CompanyParticipant
+                {
+                    CoName = "RIK",
+                    CoCode = "70000310",
+                    CoParticipants = "232",
+                    PaymentType = "Ülekanne",
+                    AdditionalInfo = "Proovitööl on puudusi.",
+                    EventInfoId = 5
+                });
             context.SaveChanges();
         }
     }

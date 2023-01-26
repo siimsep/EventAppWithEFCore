@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventAppEFCore.Migrations
 {
     [DbContext(typeof(EventAppEFCoreContext))]
-    [Migration("20230117095450_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230124110849_2401")]
+    partial class _2401
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace EventAppEFCore.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<int>("EventInfoID")
+                    b.Property<int>("EventInfoId")
                         .HasColumnType("int");
 
                     b.Property<string>("PaymentType")
@@ -62,8 +62,6 @@ namespace EventAppEFCore.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("EventInfoID");
 
                     b.ToTable("CompanyParticipant");
                 });
@@ -112,7 +110,7 @@ namespace EventAppEFCore.Migrations
                         .HasMaxLength(1500)
                         .HasColumnType("nvarchar(1500)");
 
-                    b.Property<int>("EventInfoID")
+                    b.Property<int>("EventInfoId")
                         .HasColumnType("int");
 
                     b.Property<string>("FName")
@@ -137,31 +135,7 @@ namespace EventAppEFCore.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("EventInfoID");
-
                     b.ToTable("PrivateParticipant");
-                });
-
-            modelBuilder.Entity("EventAppEFCore.Models.CompanyParticipant", b =>
-                {
-                    b.HasOne("EventAppEFCore.Models.EventInfo", "EventInfo")
-                        .WithMany()
-                        .HasForeignKey("EventInfoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EventInfo");
-                });
-
-            modelBuilder.Entity("EventAppEFCore.Models.PrivateParticipant", b =>
-                {
-                    b.HasOne("EventAppEFCore.Models.EventInfo", "EventInfo")
-                        .WithMany()
-                        .HasForeignKey("EventInfoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EventInfo");
                 });
 #pragma warning restore 612, 618
         }

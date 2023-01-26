@@ -7,20 +7,30 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using EventAppEFCore.Data;
 using EventAppEFCore.Models;
+using NuGet.Protocol;
+using NuGet.Packaging;
 
 namespace EventAppEFCore.Pages.Events
 {
     public class DetailsModel : PageModel
     {
+        // Entity Framework Core context
         private readonly EventAppEFCore.Data.EventAppEFCoreContext _context;
 
         public DetailsModel(EventAppEFCore.Data.EventAppEFCoreContext context)
         {
             _context = context;
         }
+        // Getting events info from EF 
+        public EventInfo EventInfo { get; set; }
+        // evid  (short for event id) is variable to store the Id got from OnGetAsync method. This is passed in with participants information as a foreign key relation to an event. If it works it aint stupid.
+        private static int evid;
+        // List of participants
+        //public IList<PrivateParticipant> PrivateParticipants { get; set; }
+        //public IList<CompanyParticipant> CompanyParticipants { get; set; }
+        public IList<Participant> Participants { get; set; } = new List<Participant>();
 
-      public EventInfo EventInfo { get; set; }
-
+        // In the following might be nicer to use the Id saved earlier
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.EventInfo == null)
@@ -36,8 +46,51 @@ namespace EventAppEFCore.Pages.Events
             else 
             {
                 EventInfo = eventinfo;
+                evid = EventInfo.ID;
+                Participants.AddRange(_context.PrivateParticipant.Where(x => x.EventInfoId == evid).ToList());
+                Participants.AddRange(_context.CompanyParticipant.Where(x => x.EventInfoId == evid).ToList());
             }
             return Page();
         }
+
+
+
+        // Company participant form submitting
+
+        public CompanyParticipant CompanyParticipant { get; set; } = new CompanyParticipant();
+        public async Task<IActionResult> OnPostCoAsync(CompanyParticipant CompanyParticipant )
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            CompanyParticipant.EventInfoId = evid;
+            _context.CompanyParticipant.Add(CompanyParticipant);
+            await _context.SaveChangesAsync();
+            return Redirect($"/Events/Details?id={evid}");
+        }
+
+
+
+        // Private participant form submitting
+
+        public PrivateParticipant PrivateParticipant { get; set; } = new PrivateParticipant();
+        public async Task<IActionResult> OnPostPvtAsync(PrivateParticipant PrivateParticipant)
+        {
+            if (!ModelState.IsValid)
+            {
+                // for debugging purposes
+                //Console.WriteLine(PrivateParticipant.ToJson());
+                return Page();
+                
+            }
+            PrivateParticipant.EventInfoId = evid;
+            // for debugging purposes
+            //Console.WriteLine(PrivateParticipant.ToJson());
+            _context.PrivateParticipant.Add(PrivateParticipant);
+            await _context.SaveChangesAsync();
+            return Redirect($"/Events/Details?id={evid}");
+        }
     }
-}
+
+    }
