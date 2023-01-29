@@ -12,8 +12,8 @@
         </div>
     </div>
 </div>
-<div class="container mt-3">
-    <div class="row offset-md-4">
+<div class="container pt-4 mb-3 bg-white">
+    <div class="row offset-md-2">
 
 <h4 class="bluetext">Osavõtjad</h4>
 <br />
@@ -47,7 +47,7 @@
         <dt class="col-md-2">
             Osavõtjad:
         </dt>
-        <dd class="col-md-6">
+        <dd class="col-md-10">
             @* -------- List of participants -------- *@
 
             <table class="table table-sm table-borderless">
@@ -84,12 +84,29 @@
                                     @(((CompanyParticipant)item).CoCode)
                                 }
                             </td>
-                            <td>
-                                <a asp-page="./Details" asp-route-id="@item.ID">VAATA</a>
-                            </td>
-                            <td>
-                                <a asp-page="./Delete" asp-route-id="@item.ID">KUSTUTA</a>
-                            </td>
+                                    @if (item is PrivateParticipant)
+                                    {
+                                        <td>
+                                            <a class="font-weight-bold" asp-page="./Participant" asp-route-id="@item.ID">VAATA</a>
+                                        </td>
+                                        <td>
+                                            <form asp-page-handler="Delete" asp-route-id="@item.ID" method="post">
+                                                <input type="submit" class="nodecorationbutton" value="KUSTUTA">
+                                            </form>
+                                        </td>
+
+                                    }
+                                    else if (item is CompanyParticipant)
+                                    {
+                                        <td>
+                                            <a asp-page="./CoParticipant" asp-route-id="@item.ID">VAATA</a>
+                                        </td>
+                                        <td>
+                                            <form asp-page-handler="DeleteCo" asp-route-id="@item.ID" method="post">
+                                                <input type="submit" class="nodecorationbutton" value="KUSTUTA">
+                                            </form>
+                                        </td>
+                                    }                           
                         </tr>
                         counter++;
                     }

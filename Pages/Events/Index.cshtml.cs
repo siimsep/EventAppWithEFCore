@@ -28,5 +28,25 @@ namespace EventAppEFCore.Pages.Events
                 EventInfo = await _context.EventInfo.ToListAsync();
             }
         }
+        
+        public async Task<IActionResult> OnPostDeleteAsync(int? id)
+        {
+            if (id == null || _context.EventInfo == null)
+            {
+                Console.WriteLine("not found?");
+
+                return NotFound();
+            }
+            var eventinfo = await _context.EventInfo.FindAsync(id);
+
+            if (eventinfo != null)
+            {
+
+                _context.EventInfo.Remove(eventinfo);
+                await _context.SaveChangesAsync();
+            }
+            Console.WriteLine("deleted");
+            return RedirectToPage("./Index");
+        }
     }
 }

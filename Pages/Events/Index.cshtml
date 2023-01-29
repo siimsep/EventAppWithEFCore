@@ -36,7 +36,7 @@
                         {
 
 
-                            <tr style="height:1.5em;">
+                            <tr style="height:1em;" class="vertical-align-middle">
                                 <td>
                                     @counter. @Html.DisplayFor(modelItem => item.EventName)
                                     
@@ -48,7 +48,9 @@
                                     <a asp-page="./Details" asp-route-id="@item.ID">OSAVÕTJAD</a>
                                 </td>
                                 <td>
-                                    <a asp-page="./Delete" asp-route-id="@item.ID"><img style="width:0.9em; height:auto; overflow:hidden;" src="~/images/remove.svg"></a>
+                                    <form asp-page-handler="Delete" asp-route-id="@item.ID" method="post">
+                                        <input type="image" style="width: 0.8em;" src="~/images/remove.svg" />
+                                    </form>
                                 </td>
                             </tr>
                             counter++;

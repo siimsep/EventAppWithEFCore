@@ -1,0 +1,85 @@
+﻿@page
+@model EventAppEFCore.Pages.Events.ParticipantModel
+
+@{
+    ViewData["Title"] = "Ürituse lisamine";
+}
+<div class="container">
+    <div class="row libled">
+        <div class="col-md-2 createhero">
+            <span class="align-middle">Osavõtja info</span>
+        </div>       
+    </div>
+</div>
+<div class="container bg-white mb-3 pb-3">
+    <div class="row">
+    <div class="offset-md-2">
+<h4 class="bluetext pt-3">Osavõtja info</h4>
+<br />
+    <div class="row input-group">
+        <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+         <input type="hidden" asp-for="PrivateParticipant.ID" />
+        <input type="hidden" asp-for="PrivateParticipant.EventInfoId" />
+
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label asp-for="PrivateParticipant.FName" class="control-label"></label>
+            </div>
+            <div class ="col-md-4">
+                <input asp-for="PrivateParticipant.FName" class="form-control" />
+                <span asp-validation-for="PrivateParticipant.FName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row pt-2">
+            <div class="col-md-2">
+                <label asp-for="PrivateParticipant.LName" class="control-label"></label>
+            </div>
+            <div class="col-md-4">
+                            <input asp-for="PrivateParticipant.LName" class="form-control" />
+                            <span asp-validation-for="PrivateParticipant.LName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row pt-2">
+            <div class="col-md-2">
+                <label asp-for="PrivateParticipant.PersonalIdNumber" class="control-label"></label>
+            </div>
+            <div class="col-md-4">
+                            <input asp-for="PrivateParticipant.PersonalIdNumber" class="form-control" />
+                            <span asp-validation-for="PrivateParticipant.PersonalIdNumber" class="text-danger"></span>
+            </div>
+        </div>
+                    <div class="form-group row pt-2">
+                        <div class="col-md-2">
+                            <label asp-for="PrivateParticipant.PaymentType" class="control-label"></label>
+                        </div>
+                        <div class="col-md-4">
+                            <input asp-for="PrivateParticipant.PaymentType" class="form-control" />
+                            <span asp-validation-for="PrivateParticipant.PaymentType" class="text-danger"></span>
+                        </div>
+                    </div>
+        <div class="form-group row pt-2">
+            <div class="col-md-2">
+                <label asp-for="PrivateParticipant.AdditionalInfo" class="control-label"></label>
+            </div>
+            <div class="col-md-4">
+                            <textarea asp-for="PrivateParticipant.AdditionalInfo" class="form-control" rows="2"></textarea>
+                            <span asp-validation-for="PrivateParticipant.AdditionalInfo" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="col-md-2 d-flex justify-content-between pt-2">
+            <a class="btn btn-secondary" asp-page="./Index">Tagasi</a>
+            <input type="submit" value="Salvesta" class="btn btn-primary" />
+        </div>
+        </form>
+        </div>
+        </div>
+</div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

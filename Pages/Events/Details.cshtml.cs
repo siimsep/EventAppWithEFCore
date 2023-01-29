@@ -9,6 +9,8 @@ using EventAppEFCore.Data;
 using EventAppEFCore.Models;
 using NuGet.Protocol;
 using NuGet.Packaging;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace EventAppEFCore.Pages.Events
 {
@@ -62,7 +64,8 @@ namespace EventAppEFCore.Pages.Events
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+
+                return await OnGetAsync(id: evid);
             }
             CompanyParticipant.EventInfoId = evid;
             _context.CompanyParticipant.Add(CompanyParticipant);
@@ -77,18 +80,54 @@ namespace EventAppEFCore.Pages.Events
         public PrivateParticipant PrivateParticipant { get; set; } = new PrivateParticipant();
         public async Task<IActionResult> OnPostPvtAsync(PrivateParticipant PrivateParticipant)
         {
+            
             if (!ModelState.IsValid)
             {
-                // for debugging purposes
-                //Console.WriteLine(PrivateParticipant.ToJson());
-                return Page();
-                
+                return await OnGetAsync(id: evid);
             }
             PrivateParticipant.EventInfoId = evid;
             // for debugging purposes
             //Console.WriteLine(PrivateParticipant.ToJson());
             _context.PrivateParticipant.Add(PrivateParticipant);
             await _context.SaveChangesAsync();
+            return Redirect($"/Events/Details?id={evid}");
+        }
+        public async Task<IActionResult> OnPostDeleteAsync(int? id)
+        {
+            if (id == null || _context.PrivateParticipant == null)
+            {
+                Console.WriteLine("not found?");
+
+                return NotFound();
+            }
+            var participant = await _context.PrivateParticipant.FindAsync(id);
+
+            if (participant != null)
+            {
+
+                _context.PrivateParticipant.Remove(participant);
+                await _context.SaveChangesAsync();
+            }
+            Console.WriteLine("deleted");
+            return Redirect($"/Events/Details?id={evid}");
+        }
+        public async Task<IActionResult> OnPostDeleteCoAsync(int? id)
+        {
+            if (id == null || _context.CompanyParticipant == null)
+            {
+                Console.WriteLine("not found?");
+
+                return NotFound();
+            }
+            var participant = await _context.CompanyParticipant.FindAsync(id);
+
+            if (participant != null)
+            {
+
+                _context.CompanyParticipant.Remove(participant);
+                await _context.SaveChangesAsync();
+            }
+            Console.WriteLine("deleted");
             return Redirect($"/Events/Details?id={evid}");
         }
     }
