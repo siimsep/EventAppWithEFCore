@@ -20,12 +20,12 @@ namespace EventAppEFCore.Models
         [Required]
         [StringLength(100)]
         [Display(Name = "Eesnimi:")]
-        [RegularExpression("^[A-Za-z]+$", ErrorMessage = "Eesnimi peab sisaldama ainult tähti.")]
+        [RegularExpression("^[A-Za-zõäöü]+$", ErrorMessage = "Eesnimi peab sisaldama ainult tähti.")]
         public string? FName { get; set; } = string.Empty;
         [Required]
         [StringLength(100)]
         [Display(Name = "Perenimi:")]
-        [RegularExpression("^[A-Za-z]+$", ErrorMessage = "Perenimi peab sisaldama ainult tähti.")]
+        [RegularExpression("^[A-Za-zõäöü]+$", ErrorMessage = "Perenimi peab sisaldama ainult tähti.")]
         public string? LName { get; set; } = string.Empty;
         [Required]
         [StringLength(11)]
